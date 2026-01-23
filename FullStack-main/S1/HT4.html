@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<p id="tulos"></p>
+    <script>
+        function biggest(a, b, c) {
+            let max
+            if (a>b) {
+                max = a
+            }
+            else {
+                max = b
+            }
+            if (c>max) {
+                max = c
+            }
+            return max
+        }
+        const big = biggest(5, 9, 3)
+        console.log(`suurin luku on: ${big}`)
+    </script>
+</body>
+</html>

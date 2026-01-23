@@ -1,0 +1,15 @@
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\bin\Debug\net7.0\E94.exe
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\bin\Debug\net7.0\E94.deps.json
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\bin\Debug\net7.0\E94.runtimeconfig.json
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\bin\Debug\net7.0\E94.dll
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\bin\Debug\net7.0\E94.pdb
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.csproj.AssemblyReference.cache
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.AssemblyInfoInputs.cache
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.AssemblyInfo.cs
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.csproj.CoreCompileInputs.cache
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.dll
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\refint\E94.dll
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.pdb
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\E94.genruntimeconfig.cache
+C:\Users\Kylmä Sami\Desktop\Programming module\Object Programming\olio-ohjelmointi-ttc8440-3006-k25\Moduli 3\E94\obj\Debug\net7.0\ref\E94.dll

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // function of a person
+    function person(name, age, phone, email) {
+        this.name = name
+        this.age = age
+        this.phone = phone
+        this.email = email
+
+        this.addAge = function() {
+            this.age++
+        }
+
+        this.printData= function () {
+            console.log(`${this.name} : ${this.age}`)
+        }
+    }
+    // here we create object "person" with the function above
+    var person1 = new person("Joe exotic", 57, "012", "Joexotic@mail.mail")
+    var person2 = new person("Uncle Josel", 69, "094", "yomamadream@mail.mail")
+    var person3 = new person("Matilda Carrie", 35, "058", "Matilda.Carrie@mail.mail")
+    const bob = new person("Bob Marley", 36, "4832798", "marley@mail")
+    person1.addAge()
+    person2.addAge()
+    person2.addAge()
+    console.log(person2.name, person2.age, person2.phone, person2.email)
+    person2.addAge()
+    person3.addAge()
+    person3.addAge()
+    person3.addAge()
+    console.log(person1.name, person1.age, person1.phone, person1.email)
+    console.log(person2.name, person2.age, person2.phone, person2.email)
+    console.log(person3.name, person3.age, person3.phone, person3.email)
+    bob.printData()
+    bob.addAge()
+    bob.printData()
+</script>
+</body>
+</html>
+
+Tee Person-funktio, jota kutsumalla voidaan luoda esim. person-olio,
+jolla on ominaisuudet: name, age, phone ja email.
+Luotavalla oliolla tulee olla myös metodi,
+jonka jokaisella kutsukerralla olion age-muuttujan arvo kasvaa yhdellä.
+Luo Person-funktiota käyttäen ainakin kolme eri oliota eri tiedoilla.
+Tulosta tiedot web-konsolille.

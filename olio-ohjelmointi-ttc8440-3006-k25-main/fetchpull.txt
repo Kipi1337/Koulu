@@ -1,0 +1,9 @@
+$ git remote add upstream https://gitlab.labranet.jamk.fi/jamkit/olio-ohjelmointi-ttc8440-3006-k25
+
+$ git fetch upstream
+warning: redirecting to https://gitlab.labranet.jamk.fi/jamkit/olio-ohjelmointi-ttc8440-3006-k25.git/
+
+$ git merge upstream/main
+
+$ git commit -m "merge"
+[main fb47c21] merge

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Simple To do</h3>
+    Todo: <br>
+    <input type="text" id="todotext"><br><br>
+    <button onclick="addList()">Lisää</button>
+    <button onclick="clearList()">Tyhjää lista</button>
+    <ul id="lista"></ul>
+    <script>
+        function addList(){
+        const li = document.createElement("li")
+        li.addEventListener("click", removeItem, false)
+        const todo = document.getElementById("todotext")
+        const text = document.createTextNode(todo.value)
+        li.appendChild(text)
+        const ul = document.getElementById("lista")
+        ul.appendChild(li)
+        }
+        function clearList() {
+            const ul = document.getElementById("lista")
+            while(ul.hasChildNodes()) {
+                ul.removeChild(ul.firstChild)
+            }
+        }
+        function removeItem(event) {
+            event.target.remove()
+        }
+    </script>
+</body>
+</html>

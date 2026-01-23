@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ToDo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #taskInput {
+            margin-right: 10px;
+        }
+
+        #deleteAll {
+            margin-top: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Simple ToDo App</h1>
+
+<input type="text" id="taskInput" placeholder="Lisää tehtävä">
+<button onclick="addTask()">Lisää</button>
+<button id="deleteAll" onclick="deleteAllTasks()">Tyhjää lista</button>
+
+<div id="taskListContainer"></div>
+
+<script>
+    function addTask() {
+        const taskInput = document.getElementById('taskInput');
+        const taskListContainer = document.getElementById('taskListContainer');
+
+        if (taskInput.value.trim() !== '') {
+            const ul = document.createElement('ul');
+            const li = document.createElement('li');
+            li.textContent += taskInput.value;
+            li.addEventListener('click', removeTask);
+            ul.appendChild(li);
+            taskListContainer.appendChild(ul);
+            taskInput.value = '';
+        }
+    }
+
+    function deleteAllTasks() {
+        const taskListContainer = document.getElementById('taskListContainer');
+        taskListContainer.innerHTML = '';
+    }
+
+    function removeTask(event) {
+        const taskListContainer = document.getElementById('taskListContainer');
+        const taskToRemove = event.currentTarget;
+
+        taskListContainer.removeChild(taskToRemove);
+    }
+</script>
+
+</body>
+</html>

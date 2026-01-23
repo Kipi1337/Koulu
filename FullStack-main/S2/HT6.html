@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vauhtilaskin</title>
+  <style>
+    * {width: 200px; margin: auto}
+    .box {
+      border: 1px dashed #000; padding: 15px; background-color: #adbed8; margin-top: 15px;
+    }
+    input[type="text"] {width: 60px;}
+    button {
+      background-color: #069; border-radius: 5px;
+      color: #fff; margin-bottom: 5px; margin-top: 15px;
+      padding: 5px 15px; border: none;
+    }
+    h3 {text-align: center; margin-bottom: 15px;}
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h3>Vauhtilaskin</h3>
+  <form id="vauhtiForm">
+    <table>
+      <tbody>
+         <tr><td>Tunnit: </td><td><input type="text" id="n1" placeholder="1" value="1"></td></tr>
+         <tr><td>Minuutit: </td><td><input type="text" id="n2" placeholder="20" value="20"></td></tr>
+         <tr><td>Sekunnit: </td><td><input type="text" id="n3" placeholder="0" value="0"></td></tr>
+         <tr><td>Kilometrit:</td><td><input type="text" id="n4" placeholder="0" value="10"></td></tr>
+      </tbody>
+    </table>
+    <button type="button" onclick="laskeVauhti()">Laske vauhti</button>
+  </form>
+</div>
+
+<script>
+  class Vauhtilaskin {
+    constructor(h, min, sec, km) {
+      this.h = h;
+      this.min = min;
+      this.sec = sec;
+      this.km = km;
+    }
+
+    calcKmhPace() {
+      var tunnit = parseInt(this.h) + (parseInt(this.min) * 60 + parseInt(this.sec)) / 3600;
+      var tulos = this.km / tunnit;
+      tulos = tulos.toFixed(2);
+      return tulos;
+    }
+
+    kmhpace() {
+      return this.calcKmhPace();
+    }
+  }
+
+  function laskeVauhti() {
+    var tunnit = document.getElementById("n1").value;
+    var min = document.getElementById("n2").value;
+    var sec = document.getElementById("n3").value;
+    var km = document.getElementById("n4").value;
+
+    var vauhtiLaskin = new Vauhtilaskin(tunnit, min, sec, km);
+    var vauhti = vauhtiLaskin.kmhpace();
+
+    alert("Vauhti: " + vauhti + " km/h");
+  }
+</script>
+
+</body>
+</html>

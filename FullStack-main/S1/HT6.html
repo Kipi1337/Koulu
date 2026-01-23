@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="tulos"></p>
+    <script>
+        let taulukko = [11, 22, 33, 44];
+        let summa = 0, lkm = 0, ka; tulosrivit = '';
+
+        for (const number of taulukko) {
+            lkm++
+            summa = summa + number
+        }
+
+        for (let i = 0; i < taulukko.length; i++) {
+            tulosrivit += `taulukko[${i}] = ${taulukko[i]} <br>`
+        }
+
+        ka = summa / lkm
+
+        let tulos = document.getElementById("tulos")
+        tulos.innerHTML = "Alkiot:<br><br>" + tulosrivit +"<br>" + "Taulukon alkioiden määrä" + "<br>" + "lukumäärä: "+ lkm + "<br>" + "summa: " + summa + "<br>" + "keskiarvo: " + ka.toFixed(2)
+    </script>
+</body>
+</html>

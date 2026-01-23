@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            height: 250px;
+            width: 500px;
+        }
+
+        #colorInput {
+            margin-top: 10px;
+        }
+
+        #textArea {
+            width: 100%;
+        }
+
+        .button {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Color Picker</h1>
+
+<label for="colorSelect">Valitse väri:</label>
+<select id="colorSelect">
+    <option value="#ff0000">Punainen</option>
+    <option value="#00ff00">Vihreä</option>
+    <option value="#0000ff">Sininen</option>
+</select>
+<p>Mikä juhla:</p>
+<input type="text" id="textArea">
+
+<button class="button" onclick="changeBackgroundColor()">Vaihda valittu taustaväri</button>
+
+<div id="result">
+    <p id="selectedColorText"></p>
+</div>
+
+<script>
+    const colorSelect = document.getElementById('colorSelect');
+    const resultDiv = document.getElementById('result');
+    const textArea = document.getElementById('textArea');
+    const selectedColorText = document.getElementById('selectedColorText');
+
+    colorSelect.addEventListener('change', updateColorResult);
+    textArea.addEventListener('input', updateTextResult);
+
+    function updateColorResult() {
+        const selectedColor = colorSelect.value;
+        selectedColorText.textContent = `Valittu värikoodi: ${selectedColor}`;
+    }
+
+    function updateTextResult() {
+        const inputText = textArea.value;
+        if (!isNaN(inputText)) {
+            alert('Syötä teksti, ei numeroita!');
+            textArea.value = '';
+        } else {
+            resultDiv.textContent = `${inputText}`;
+        }
+    }
+
+    function changeBackgroundColor() {
+        const selectedColor = colorSelect.value;
+        resultDiv.style.backgroundColor = selectedColor;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tulosta tasoitukset</title>
+<script>
+var hcpdata = [
+    { "name": "Ari", "hcp": 54 },
+    { "name": "Pasi", "hcp": 5 },
+    { "name": "Seppo", "hcp": 20 }
+    ];
+    function createList() {
+        for (let i = 0; i < hcpdata.length; i++) {
+            const li = document.createElement("li")
+            const text = document.createTextNode(hcpdata[i].name + " " + hcpdata[i].hcp)
+            li.appendChild(text)
+            const ul = document.getElementById("hcplist")
+            ul.appendChild(li)
+        }
+        hcpdata = []
+    }
+</script>
+</head>
+<body>
+    <button onclick="createList()">Tulosta tasoitukset</button>
+	<ul id="hcplist"></ul>
+</body>
+</html>

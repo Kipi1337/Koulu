@@ -1,0 +1,5 @@
+nimi = input("Anna etunimesi: ")
+sukunimi = input("Anna sukunimesi: ")
+up = nimi.upper()
+upp = sukunimi.upper()
+print(up,upp)

@@ -1,0 +1,220 @@
+192.168.57.0/24
+
+Harjoitus 1
+
+Mikä on 192.168.ki.0/24:n käytettävä osoiteavaruus (päätelaitteille)?
+	
+	Aliverkon maski määrittelee aliverkon koon
+	/24 on slash formaatissa aliverkonmaski
+	aliverkonmaski binäärimuodossa
+	11111111 . 11111111 . 11111111 . 00000000 <- IPv4 32bit osoite
+	nnnnnnnn . nnnnnnnn . nnnnnnnn . hhhhhhhh <- (n=network bit, h=host bit)
+	decimaalimuodossa aliverkon maski
+	CIDR(aliverkon maski) /24 on 256(0-255) IP osoitetta joista 254 on käytettävissä.
+	
+	BIN -> DEC
+	255 . 255 . 255 . 0 (tietokoneet)
+	11111111 -> 255
+	host biteille jää 8 bittiä
+	hhhhhhhh
+	00000000	-> 0
+	00000001	-> 1
+	00000010	-> 2
+	00000011	-> 3
+	00000100	-> 4
+	00000101	-> 5
+	00000110	-> 6
+	00000111	-> 7
+	00001000	-> 8
+	00001001	-> 9
+	...
+	11111100	-> 252
+	
+	Osoite avaruutta 192.168.57.0/24 aliverkossa on
+	
+	192.168.57.0 - 192.168.57.255 välillä
+	2^h = 2^8 = 256
+	IPv4:ssa ei saa käyttää työasemille tai broadcast tarkoitettua osoitetta
+	
+Mikä on kyseisen verkon yleislähetysosoite? (eng. Broadcast address)
+	
+	yleislähetysosoite on osoite jossa kaikki h bitit on 1
+	yleislähetysosoite on 192.168.57.255
+
+Mikä on verkon osoite? (eng. Subnet Address)
+
+	192.168.57.0 on verkonosoite kun h bitit ovat 0
+
+2 Harjoitus 2
+
+	192.168.57.0/24
+
+Jaa 192.168.ki.0/24 pienemmiksi aliverkoiksi, johon mahtuu vähintään 50 päätelaitetta.
+Huom! Tee mahdollisimman pieni aliverkko!
+
+Uusi aliverkon osoite
+
+	192.168.57.0/26
+	
+Aliverkon maski
+2^4=16
+2^5=32
+2^6=64 osoitetta johon mahtuisi 50 päätelaitetta
+/26
+	11111111 . 11111111 . 11111111 . 11000000 <- IPv4 32bit osoite
+	nnnnnnnn . nnnnnnnn . nnnnnnnn . nnhhhhhh <- (n=network bit, h=host bit)
+	255		 . 255		. 255	   . 192
+	hh hhhh -> 65
+	11 1100 -> 60
+	11 1101 -> 61
+	11 1110 -> 62
+	11 1111 -> 63
+	
+	n bitit kasvoivat -> host bitit pienenevät -> aliverkko pienenee
+	
+Käytettävien (päätelaite)osoitteiden määrä
+	
+	192.168.57.0 - 192.168.57.64 joista käytettävissä on 62
+	
+Ensimmäinen käytettävä (päätelaite)osoite
+
+	192.168.57.0
+	
+Viimeinen käytettävä (päätelaite)osoite
+
+	192.168.57.62
+	
+Yleislähetysosoite
+
+	192.168.57.63
+
+3 Jaa 10.10.03.0/24 pienemmiksi aliverkoiksi, johon mahtuu vähintään 13 päätelaitetta. Huom! Tee mahdollisimman pieni(ä) aliverkko(ja):
+
+	Uusi aliverkon osoite
+
+	10.10.03.0/26
+	
+Aliverkon maski
+2^4=16
+
+/28
+	11111111 . 11111111 . 11111111 . 11110000 <- IPv4 32bit osoite
+	nnnnnnnn . nnnnnnnn . nnnnnnnn . nnnnhhhh <- (n=network bit, h=host bit)
+	255		 . 255		. 255	   . 240
+	hhhh -> 16
+	1100 -> 12
+	1101 -> 13
+	1110 -> 14
+	1111 -> 15
+	
+	n bitit kasvoivat -> host bitit pienenevät -> aliverkko pienenee
+	
+Käytettävien (päätelaite)osoitteiden määrä
+	
+	10.10.03.0 - 10.10.03.15 joista käytettävissä on 14
+	
+Ensimmäinen käytettävä (päätelaite)osoite
+
+	10.10.03.0
+	
+Viimeinen käytettävä (päätelaite)osoite
+
+	10.10.03.14
+	
+Yleislähetysosoite
+
+	10.10.03.15
+	
+4 Jaa viimeinen aliverkko harjoituksesta 3 pienemmiksi aliverkoiksi, johon mahtuu vähintään 2 päätelaitetta. Huom! Tee mahdollisimman pieni(ä) aliverkko(ja): 
+
+	Uusi aliverkon osoite
+
+	10.10.03.0/28
+	
+Aliverkon maski
+2^2=2
+
+/30
+	11111111 . 11111111 . 11111111 . 11111100 <- IPv4 32bit osoite
+	nnnnnnnn . nnnnnnnn . nnnnnnnn . nnnnnnhh <- (n=network bit, h=host bit)
+	255		 . 255		. 255	   . 252
+	hh -> 4
+	01 -> 1
+	10 -> 2
+	11 -> 3
+	
+	n bitit kasvoivat -> host bitit pienenevät -> aliverkko pienenee
+	
+Käytettävien (päätelaite)osoitteiden määrä
+	
+	10.10.03.0 - 10.10.03.3 joista käytettävissä on 2
+	
+Ensimmäinen käytettävä (päätelaite)osoite
+
+	10.10.03.0
+	
+Viimeinen käytettävä (päätelaite)osoite
+
+	10.10.03.2
+	
+Yleislähetysosoite
+
+	10.10.03.3
+	
+5 Onko aliverkko 10.10.03.0/24 osa suurempaa verkkoa 10.10.16.0/20?
+Kirjoita laskelmasi paperille tai tee ne tietokoneella. Lisää laskelmat dokumentaatioon
+
+10.03.0/24
+nnnnnnnn . nnnnnnnn . nnnnnnnn . hhhhhhhh
+11111111 . 11111111 . 11111111 . 00000000
+255.255.255.0
+
+254 käytettävää osoitetta
+
+10.10.03.255
+!10.10.03. jolla on 255 mahdollista osoitetta joka kertaantuu 255!
+10.10.16.0/20
+nnnnnnnn . nnnnnnnn . nnnnhhhh . hhhhhhhh
+11111111 . 11111111 . 11110000 . 00000000
+255.255.240.0
+
+
+4094 käytettävää osoitetta
+
+10.10.03.255
+!10.10.03-31 niillä jokaisella on 255 mahdollista osoitetta joka kertaantuu 4094!
+
+31.254 viimeinen käytettävissä oleva ip osoite
+
+10.10.31.255
+
+6 Onko aliverkko 10.10.03.0/24 osa suurempaa verkkoa 10.0.0.0/8? Kirjoita laskelmasi paperille tai tee ne tietokoneella. Lisää laskelmat dokumentaatioon (esim. ota kuva paperista tai kuvankaappaus tietokoneelta)
+
+10.03.0/24
+nnnnnnnn . nnnnnnnn . nnnnnnnn . hhhhhhhh
+11111111 . 11111111 . 11111111 . 00000000
+255.255.255.0
+
+254 käytettävää osoitetta
+
+10.10.03.255
+!10.10.03. jolla on 255 mahdollista osoitetta joka kertaantuu 255!
+ei ole sillä ip osoitteet eivät osu ip avaruuteen
+
+10.0.0.0/8
+
+nnnnnnnn . hhhhhhhh . hhhhhhhh . hhhhhhhh
+11111111 . 00000000 . 00000000 . 00000000
+10.255.255.255
+
+
+16 777 214 käytettävää osoitetta
+
+10.255.255.255
+!10.0-255.0-255.0-255 niillä jokaisella on 255 mahdollista osoitetta joka kertaantuu 16 777 214!
+
+10.255.255.254 viimeinen käytettävissä oleva ip osoite
+
+10.10.31.255
+
+voi olla osana aliverkkoa sillä maskilla 8 maski 24 osuu ip avaruuteen

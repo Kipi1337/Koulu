@@ -1,0 +1,183 @@
+2210357
+vvxyzki
+
+10.10.03.0/24
+
+192.168.57.0/24
+
+Harjoitus 1
+
+Mikä on 192.168.ki.0/24:n käytettävä osoiteavaruus (päätelaitteille)?
+
+	CIDR(aliverkon maski) /24 on 256(0-255) IP osoitetta joista 254 on käytettävissä.
+	11111111 . 11111111 . 11111111 . 00000000 aliverkon maski binääri muodossa
+	BIN -> DEC
+	11111111 -> 255
+
+Mikä on kyseisen verkon yleislähetysosoite? (eng. Broadcast address)
+
+	yleislähetys osoite on 255
+
+Mikä on verkon osoite? (eng. Subnet Address)
+
+	192.168.57.0
+
+Harjoitus 2
+
+Jaa 192.168.57.0/24 pienemmiksi aliverkoiksi, johon mahtuu vähintään 50 päätelaitetta. Huom! Tee mahdollisimman pieni aliverkko!
+
+	192.168.57.0/26
+	aliverkon maskilla 26 on 64 ip osoitetta joista on käytettävissä 62 ip osoitetta
+	aliverkot alkaa maskista /32 jolla on 1 hosti ja ip, /31 jolla 2 hostia ja ip osoitetta,
+	/30 jolla 4 hostia ja 2 ip etc jonka avulla saadaan selville että 26 on oikea pienin vastaus
+	/30 alaspäin ip osoite on 2 pienempi kuin hostien määrä
+
+Harjoitus 3
+
+Jaa 10.10.03.0/24 pienemmiksi aliverkoiksi, johon mahtuu vähintään 13 päätelaitetta. Huom! Tee mahdollisimman pieni(ä) aliverkko(ja):
+
+	maskilla /28 on 16 hostia ja 14 käytettävää ip osoitetta
+
+Harjoitus 4
+
+Jaa viimeinen aliverkko harjoituksesta 3 pienemmiksi aliverkoiksi, johon mahtuu vähintään 2 päätelaitetta. Huom! Tee mahdollisimman pieni(ä) aliverkko(ja):
+
+	maskilla /31 on 2 hostia jolla on 2 ip osoitetta
+
+Harjoitus 5
+
+Onko aliverkko 10.xy.yz.0/24 osa suurempaa verkkoa 10.xy.16.0/20?
+
+	maskilla /24 on 256 hostia ja 254 käytettävää ip osoitetta
+	maskilla /20 on 4096 hostia ja 4094 käytettävää ip osoitetta
+	ei ole jos ottaa huomioon jos jakaa maskin /20 aliverkkoihin niin aliverkkoja maskilla /24
+	21x2 22x4 23x8 24x16. eli aliverkko olisi suotava jakaa 16 aliverkkoon maskilla /24 ja ip osoitteet eivät ole samat joten ei
+
+256*2 24
+512*2 23
+1024*2 22
+2048*2 21
+4096
+
+Harjoitus 6
+
+Onko aliverkko 10.xy.yz.0/24 osa suurempaa verkkoa 10.0.0.0/8?
+
+	maski 24 256/254
+	maski 8 16 777 216/16 777 214
+	ei sillä ip osoitteet eivät täsmää
+
+4096*2 20
+8192*2 19
+16384*2 18
+32 768‬ 17
+65 536‬ 16
+131 072‬ 15
+262 144 14
+524 288 13
+1 048 576 12
+2 097 152 11
+4 194 304 10
+8 388 608‬ 9
+16 777 216‬ 8
+
+
+Harjoitus 7
+
+2210357
+vvxyzki
+
+195.10.03.0/24
+43.10.57.0/24
+15.57.10.0/24
+100.03.57.0/24
+
+195.10.03.0/24
+
+inetnum:        195.10.0.0 - 195.10.3.255
+netname:        CW-POP-BAP-NET
+descr:          Cable & Wireless Worldwide
+descr:          Barcelona customer networks
+country:        ES
+admin-c:        GSOC-RIPE
+tech-c:         GNOC4-RIPE
+status:         LIR-PARTITIONED PA
+mnt-by:         CW-EUROPE-GSOC
+mnt-domains:    CW-DNS-MNT
+created:        2010-09-10T17:00:07Z
+last-modified:  2010-09-10T17:00:07Z
+source:         RIPE
+
+43.10.57.0/24
+
+inetnum:        43.0.0.0 - 43.63.255.255
+netname:        ALIBABA_CLOUD
+descr:          Aliyun Computing Co.LTD
+country:        CN
+admin-c:        ASEP1-AP
+tech-c:         ASEP1-AP
+abuse-c:        AA1926-AP
+status:         ALLOCATED NON-PORTABLE
+mnt-by:         MAINT-ASEPL-SG
+mnt-irt:        IRT-ASEPL-SG
+last-modified:  2021-04-14T01:11:45Z
+source:         APNIC
+
+15.57.10.0/24
+
+% Joint Whois - whois.lacnic.net
+%  This server accepts single ASN, IPv4 or IPv6 queries
+
+% LACNIC resource: whois.lacnic.net
+
+
+% Copyright LACNIC lacnic.net
+%  The data below is provided for information purposes
+%  and to assist persons in obtaining information about or
+%  related to AS and IP numbers registrations
+%  By submitting a whois query, you agree to use this data
+%  only for lawful purposes.
+%  2023-01-29 04:51:33 (-03 -03:00)
+
+% Unallocated and unassigned in LACNIC block: 15.57.10.0/24
+
+% whois.lacnic.net accepts only direct match queries.
+% Types of queries are: POCs, ownerid, CIDR blocks, IP
+% and AS numbers.
+
+100.03.57.0/24
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+#
+# Copyright 1997-2023, American Registry for Internet Numbers, Ltd.
+#
+
+
+#
+# Query terms are ambiguous.  The query is assumed to be:
+#     "r < 100.03.57.0/24"
+#
+# Use "?" to get help.
+#
+
+American Registry for Internet Numbers NET100 (NET-100-0-0-0-0) 100.0.0.0 - 100.255.255.255
+Verizon Business V4-VZO (NET-100-0-0-0-1) 100.0.0.0 - 100.19.255.255
+
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/resources/registry/whois/tou/
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/resources/registry/whois/inaccuracy_reporting/
+#
+# Copyright 1997-2023, American Registry for Internet Numbers, Ltd.
+#
+
+

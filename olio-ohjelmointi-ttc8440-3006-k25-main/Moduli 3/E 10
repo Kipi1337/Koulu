@@ -1,0 +1,11 @@
+Toteuta oma WinForms-sovellus, joka käyttää olioita tiedon hallintaan.
+Laajenna esimerkissä tehtävässä 4.1 olevaa Auto-luokkaa lisäämällä "Rekisterinumero"-ominaisuus.
+Lisää mahdollisuus poistaa autoja listasta.
+Tallenna autojen tiedot tiedostoon ja lataa ne sovellukseen.
+
+
+Vinkkejä
+- Luo WinForms-projekti
+- Lisää käyttöliittymä komponentit:
+    Avaa Form1.Designer.cs ja muokkaa InitializeComponent()-metodia
+- Lisää tapahtumakäsittelijä Form1.cs-tiedostoon

@@ -1,0 +1,167 @@
+Käytä kolmatta 50 (päätelaite)osoitteen aliverkkoa (E03 Aliverkkojen laskenta - Harjoitus 2) R2:sen ja Lubuntu3 välillä.
+Käytä yksi 2 (päätelaite)osoitteen aliverkko (E03 Aliverkkojen laskenta - Harjoitus 4) R1 ja R2 välillä. x
+
+Osoitteista reitittimen - aina manuaalisesti
+Konfiguroi R1 ja R2 niille kuuluvilla IP-osoitteilla.
+
+Lisää ja dokumentoi DHCP palvelin(konfiguraatio) R1:ssä kiinni oleville aliverkoille (paitsi network_devices).
+Tee sama R2:lle (ja siinä kiinni olevalle työasemaverkolle)
+Huom! R2:sen ja Lubuntu3:n välissä ei ole kytkintä eli niiden adapterit voivat olla samassa Internal Network:ssä VirtualBox:ssa
+
+Lainat (eng. Leases)
+Dokumentoi show dhcp server leases -komento R1:ltä ja R2:lta kun DHCP on alkanut toimimaan.
+
+Luodaan staattinen reitti reitittimille
+Toteuta symmetrinen reititys R1 ja R2 välillä.
+
+Yhteystestaukset
+Tarkasta yhteydellisyys eri päätelaitteiden (Lubuntujen) kesken eri aliverkoissa käyttämällä ping- ja traceroute-komentoja.
+
+
+
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.0.0/24 default-router 192.168.0.254
+
+Asettaa DHCP viestiin aliverkolle 192.168.0.0/24 parametrin oletusyhdyskäytävä:lle osoitteeseen 192.168.0.254
+
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.0.0/24 range PCs start 192.168.0.2
+
+Aloittaa osoitteiden jakamisen osoiteavaruudesta 192.168.0.2 alkaen.
+
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.0.0/24 range PCs stop 192.168.0.250
+
+Lopettaa osoitteiden jakamisen osoiteavaruudesta päättyen 192.168.0.250.
+
+
+Jotka näyttäisi show configuration -komennossa
+
+service {
+    dhcp-server {
+        shared-network-name VLAN5 {
+            subnet 192.168.0.0/24 {
+                default-router 192.168.0.254
+                range PCs {
+                    start 192.168.0.2
+                    stop 192.168.0.250
+                }
+            }
+        }
+    }
+}
+
+
+Kun asetukset on otettu käyttöön Vyos -reitittimellä ja päätelaitteet asetettu automaattiselle osoitteistukselle.
+Palvelin näyttää aktiiviset lainansa päätelaitteille.
+
+show dhcp server leases
+
+vyos@vyos:~$ show dhcp server leases
+IP address    Hardware address    Lease expiration     Pool    Client Name
+------------  ------------------  -------------------  ------  ------------------
+192.168.0.2   08:00:27:03:c2:9a   2020/08/06 08:01:49  VLAN5   lubuntu-VirtualBox
+
+
+Esimerkki: Staattinen reitti
+
+set protocols static route <subnet> next-hop <how to get there / next-hop>
+
+esim.
+
+set protocols static route 172.16.0.0/24 next-hop 25.0.0.2
+
+Tätä voi mieltää liikennekylttinä risteyksessä
+
+set a static sign <Helsinki> next-hop <turn left>
+
+
+Varoitus: Jos sinulla on useampia aliverkkoja samassa DHCP palvelimessa, käytä eri shared-network-name nimeä niille!
+esim.
+
+service {
+    dhcp-server {
+        shared-network-name VLAN5 {
+            subnet 192.168.0.0/24 {
+                default-router 192.168.0.254
+                range PCs {
+                    start 192.168.0.2
+                    stop 192.168.0.250
+                }
+
+        shared-network-name VLAN10 {
+            subnet 192.168.2.0/24 {
+                default-router 192.168.2.254
+                range PCs {
+                    start 192.168.2.2
+                    stop 192.168.2.250
+                }
+            }
+        }
+    }
+}
+
+
+Saavuttaakseen symmetrisen reitityksen, seuraavat komennot tarvitaan:
+
+Ampere -reitittimellä: set protocols static route 172.16.0.0/24 next-hop 25.0.0.2
+
+Ja Candela -reitittimellä: set protocols static route 192.168.0.0/24 next-hop 25.0.0.1
+
+Jos molemmat aliverkot on symmetrisesti reititetty,
+Candela -reititin tarvitsee myös: set protocols static route 192.168.10.0/24 next-hop 25.0.0.1
+
+Esimerkki - Asymmetrinen
+Sama esimerkki asymmetrisenä tarkoittaisi muutoksia reitteihin (jotka annettiin symmetrisessä esimerkissä).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.0.0/24 default-router 192.168.0.254
+
+
+Asettaa DHCP viestiin aliverkolle 192.168.0.0/24 parametrin oletusyhdyskäytävä:lle osoitteeseen 192.168.0.254
+
+
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.0.0/24 range PCs start 192.168.0.2
+
+
+Aloittaa osoitteiden jakamisen osoiteavaruudesta 192.168.0.2 alkaen.
+
+
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.0.0/24 range PCs stop 192.168.0.250
+
+
+Lopettaa osoitteiden jakamisen osoiteavaruudesta päättyen 192.168.0.250.
+
+workstations configuraatio sininen lanka 192.168.57.0/26
+sleepstations configuraation liila lanka 192.168.57.64/26
+LAN5 configuration 192.168.57.128/26
+
+>Vyos
+
+sininen
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.57.0/26 default-router 192.168.57.62
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.57.0/26 range PCs start 192.168.57.1
+set service dhcp-server shared-network-name VLAN5 subnet 192.168.57.0/26 range PCs stop 192.168.57.50
+
+liila
+set service dhcp-server shared-network-name VLAN10 subnet 192.168.57.64/26 default-router 192.168.57.126
+set service dhcp-server shared-network-name VLAN10 subnet 192.168.57.64/26 range PCs start 192.168.57.65
+set service dhcp-server shared-network-name VLAN10 subnet 192.168.57.64/26 range PCs stop 192.168.57.115
+
+>Vyos2
+set service dhcp-server shared-network-name LAN5 subnet 192.168.57.128/26 default-router 192.168.57.190
+set service dhcp-server shared-network-name LAN5 subnet 192.168.57.128/26 range PCs start 192.168.57.129
+set service dhcp-server shared-network-name LAN5 subnet 192.168.57.128/26 range PCs stop 192.168.57.179
+

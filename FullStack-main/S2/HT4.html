@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="startSinging()">
+    <p id="results"></p>
+<script>
+    let results
+    let fireworksInterval
+
+    function startSinging() {
+        results = document.getElementById("results")
+        results.innerHTML = "OMG - Lady Gaga start singing!"
+        setTimeout(() => { stopSinging() }, 11000)
+        fireworksInterval = setInterval( () => { fireworks() }, 5000)
+    }
+
+    function fireworks() {
+        results.innerHTML += "<br>NICE - fireworks!"
+    }
+
+    function stopSinging() {
+        clearInterval(fireworksInterval)
+        results.innerHTML += "<br>WOW - It was the best concert in my life....!"
+    }
+</script>
+</body>
+</html>
+

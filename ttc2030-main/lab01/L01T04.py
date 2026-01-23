@@ -1,0 +1,6 @@
+num1 = int(input("anna kokonaisluku: "))
+num2 = int(input("anna toinen kokonaisluku: "))
+summa = (num1+num2)
+erotus = (num1-num2)
+tulo = (num1*num2)
+print("summa: ",str(summa),"\nerotus: ",str(erotus),"\ntulo: ",str(tulo))
