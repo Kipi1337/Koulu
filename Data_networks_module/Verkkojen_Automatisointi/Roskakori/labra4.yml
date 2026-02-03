@@ -1,0 +1,65 @@
+---
+- name: Configure VLANs on Exos switches and VyOS router
+  hosts: all
+  gather_facts: no
+
+  vars:
+    vlans:
+      - id: 100
+        name: "KISULI"
+        vyos_ip: "10.10.100.11/24"
+        exos_ips:
+          exos-switch1: "10.10.100.1"
+          exos-switch2: "10.10.100.2"
+          exos-switch3: "10.10.100.3"
+          exos-switch4: "10.10.100.4"
+        ports:
+          exos-switch1: "1-4"
+          exos-switch2: "1-4"
+          exos-switch3: "1-2"
+          exos-switch4: "1-2"
+
+  tasks:
+    - name: Ensure output directory exists
+      file:
+        path: output_files
+        state: directory
+
+    - name: Configure VLANs on VyOS
+      template:
+        src: templates/vyos_vlan_template.j2
+        dest: output_files/vyos2_{{ inventory_hostname }}.conf
+      loop: "{{ vlans }}"
+      vars:
+        vlan_id: "{{ item.id }}"
+        vlan_name: "{{ item.name }}"
+        vyos_ip_address: "{{ item.vyos_ip }}"
+      when: ansible_network_os == "vyos.vyos.vyos"
+      tags: changes
+
+    - name: Apply VyOS configuration
+      vyos.vyos.vyos_config:
+        src: output_files/vyos2_{{ inventory_hostname }}.conf
+      when: ansible_network_os == "vyos.vyos.vyos"
+      tags: install
+
+    - name: Configure VLANs on Exos switches
+      template:
+        src: templates/exos_vlan_template.j2
+        dest: output_files/exos2_{{ inventory_hostname }}.conf
+      loop: "{{ vlans }}"
+      vars:
+        vlan_name: "{{ item.name }}"
+        vlan_id: "{{ item.id }}"
+        vlan_ip: "{{ item.vyos_ip }}"
+        exos_ip: "{{ item.exos_ips[inventory_hostname] | default('') }}"
+        ports: "{{ item.ports[inventory_hostname] | default('') }}"
+      when: ansible_network_os == "community.network.exos"
+      tags: changes
+
+    - name: Apply Exos configuration
+      template:
+        src: templates/exos_vlan_template.j2
+        dest: output_files/exos2_{{ inventory_hostname }}.conf
+      when: ansible_network_os == "community.network.exos"
+      tags: install

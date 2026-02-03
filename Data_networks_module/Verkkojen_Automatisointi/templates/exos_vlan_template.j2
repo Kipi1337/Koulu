@@ -1,0 +1,8 @@
+{% for vlan in vlans %}
+{% if vlan.exos_ips[inventory_hostname] is defined and vlan.ports[inventory_hostname] is defined %}
+create vlan "{{ vlan.name }}"
+configure vlan {{ vlan.name }} tag {{ vlan.id }}
+configure vlan {{ vlan.name }} ipaddress {{ vlan.exos_ips[inventory_hostname] }}
+configure vlan {{ vlan.name }} add ports {{ vlan.ports[inventory_hostname] }} tagged
+{% endif %}
+{% endfor %}

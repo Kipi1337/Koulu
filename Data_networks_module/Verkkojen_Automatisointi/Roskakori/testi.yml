@@ -1,0 +1,10 @@
+---
+- name: Testaa kirjoittamista tiedostoon
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Kirjoita testirivi tiedostoon
+      lineinfile:
+        path: "testfile.txt"
+        line: "Tämä on testirivi"
+        state: present

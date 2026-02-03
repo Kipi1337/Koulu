@@ -1,0 +1,3 @@
+username: "liskomies"
+password: "password3"
+role: "user"

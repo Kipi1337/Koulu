@@ -1,0 +1,19 @@
+---
+- name: Backup configurations from VyOS and EXOS devices
+  hosts: all
+  tasks:
+    - name: Backup VyOS configuration
+      vyos.vyos.vyos_config:
+        backup: true
+        backup_options:
+          dir_path: conf
+          filename: "{{ inventory_hostname }}-backup.cfg"
+      when: ansible_network_os == "vyos.vyos.vyos"
+
+    - name: Backup Exos configuration
+      community.network.exos_config:
+        backup: true
+        backup_options:
+          dir_path: conf
+          filename: "{{ inventory_hostname }}-backup.cfg"
+      when: ansible_network_os == "community.network.exos"

@@ -1,0 +1,87 @@
+- name: Configure VLANs on Exos switches and VyOS router
+  hosts: all
+  gather_facts: no
+
+  vars:
+    vlans:
+      - id: 10
+        name: "staff"
+        vyos_ip: "10.10.10.11/24"
+        exos_ips:
+          exos-switch1: "10.10.10.1"
+          exos-switch2: "10.10.10.2"
+          exos-switch3: "10.10.10.3"
+          exos-switch4: "10.10.10.4"
+        ports:
+          exos-switch1: "1-4"
+          exos-switch2: "1-4"
+          exos-switch3: "1-2"
+          exos-switch4: "1-2"
+      - id: 20
+        name: "admin"
+        vyos_ip: "10.10.20.11/24"
+        exos_ips:
+          exos-switch1: "10.10.20.1"
+          exos-switch2: "10.10.20.2"
+          exos-switch3: "10.10.20.3"
+          exos-switch4: "10.10.20.4"
+        ports:
+          exos-switch1: "1-4"
+          exos-switch2: "1-4"
+          exos-switch3: "1-2"
+          exos-switch4: "1-2"
+      - id: 80
+        name: "transit"
+        vyos_ip: "10.10.80.11/24"
+        exos_ips:
+          exos-switch1: "10.10.80.1"
+          exos-switch2: "10.10.80.2"
+        ports:
+          exos-switch1: "1,4"
+          exos-switch2: "1,4"
+
+  tasks:
+    - name: Ensure output directory exists
+      file:
+        path: output_files
+        state: directory
+
+    - name: Read user data from text file
+      slurp:
+        src: users.txt
+      register: user_data
+
+    - name: Set user variables
+      set_fact:
+        user: "{{ user_data.content | b64decode | from_yaml }}"
+
+    - name: Configure VLANs on VyOS
+      template:
+        src: templates/vyos_vlan_template.j2
+        dest: output_files/vyos_{{ inventory_hostname }}.conf
+      loop: "{{ vlans }}"
+      when: ansible_network_os == "vyos.vyos.vyos"
+
+    - name: Apply VyOS configuration
+      when: ansible_network_os == "vyos.vyos.vyos"
+      vyos.vyos.vyos_config:
+        src: output_files/vyos_{{ inventory_hostname }}.conf
+
+    - name: Configure VLANs on Exos switches
+      template:
+        src: templates/exos_vlan_template.j2
+        dest: output_files/exos_{{ inventory_hostname }}.conf
+      loop: "{{ vlans }}"
+      when: ansible_network_os == "community.network.exos"
+
+    - name: Apply VLAN configuration on Exos switches
+      when: ansible_network_os == "community.network.exos"
+      community.network.exos_config:
+        src: output_files/exos_{{ inventory_hostname }}.conf
+
+    - name: Set MOTD on VyOS
+      vyos.vyos.vyos_banner:
+        banner: pre-login
+        text: "BANNERIOSUUDEN NELJÄN TUNNIN TURHA TYÖ SEISOO TÄSSÄ"
+        state: present
+      when: ansible_network_os == "vyos.vyos.vyos"

@@ -1,0 +1,28 @@
+---
+- name: Restore configurations to VyOS and EXOS devices
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Print device name
+      debug:
+        msg: "Restoring configuration to device: {{ inventory_hostname }}"
+
+    - name: Verify if config file exists
+      stat:
+        path: "conf/{{ inventory_hostname }}-new.cfg"
+      register: config_file
+
+    - name: Fail if config file is not found
+      fail:
+        msg: "Configuration file for {{ inventory_hostname }} not found."
+      when: not config_file.stat.exists
+
+    - name: Push config to VyOS
+      vyos.vyos.vyos_config:
+        src: "conf/{{ inventory_hostname }}-new.cfg"
+      when: ansible_network_os == "vyos.vyos.vyos"
+
+    - name: Push config to EXOS devices
+      community.network.exos_config:
+        src: "conf/{{ inventory_hostname }}-new.cfg"
+      when: ansible_network_os == "community.network.exos"

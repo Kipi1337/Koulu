@@ -1,0 +1,73 @@
+---
+- name: Configure VLANs on Exos switches and VyOS router
+  hosts: all
+  gather_facts: no
+
+  vars:
+    vlans:
+      - id: 10
+        name: "staff"
+        vyos_ip: "10.10.10.11"
+        exos_ips:
+          exos-switch1: "10.10.10.1"
+          exos-switch2: "10.10.10.2"
+          exos-switch3: "10.10.10.3"
+          exos-switch4: "10.10.10.4"
+        ports:
+          exos-switch1: "1-4"
+          exos-switch2: "1-4"
+          exos-switch3: "1-2"
+          exos-switch4: "1-2"
+      - id: 20
+        name: "admin"
+        vyos_ip: "10.10.20.11"
+        exos_ips:
+          exos-switch1: "10.10.20.1"
+          exos-switch2: "10.10.20.2"
+          exos-switch3: "10.10.20.3"
+          exos-switch4: "10.10.20.4"
+        ports:
+          exos-switch1: "1-4"
+          exos-switch2: "1-4"
+          exos-switch3: "1-2"
+          exos-switch4: "1-2"
+      - id: 80
+        name: "transit"
+        vyos_ip: "10.10.80.11"
+        exos_ips:
+          exos-switch1: "10.10.80.1"
+          exos-switch2: "10.10.80.2"
+        ports:
+          exos-switch1: "1,4"
+          exos-switch2: "1,4"
+
+  tasks:
+    - name: Ensure output directory exists
+      file:
+        path: output_files
+        state: directory
+
+    - name: Create or update VyOS configuration file
+      lineinfile:
+        path: output_files/vyos_{{ inventory_hostname }}.conf
+        line: |
+          interfaces bridge br0 vif {{ item.id }} address {{ item.vyos_ip }}
+          set interfaces bridge br0 vif {{ item.id }} description {{ item.name }}
+          set interfaces bridge br0 member interface eth2 allowed-vlan {{ item.id }}
+          set interfaces bridge br0 member interface eth3 allowed-vlan {{ item.id }}
+        create: yes  # Luo tiedosto, jos sitä ei ole
+      loop: "{{ vlans }}"
+      when: ansible_network_os == "vyos.vyos.vyos"
+
+    - name: Create or update Exos configuration file
+      lineinfile:
+        path: output_files/exos_{{ inventory_hostname }}.conf
+        line: |
+          create vlan {{ item.name }} tag {{ item.id }}
+          configure vlan {{ item.id }} ipaddress {{ item.exos_ips[inventory_hostname] }}
+          configure vlan {{ item.id }} add ports {{ item.ports[inventory_hostname] }} tagged
+        create: yes  # Luo tiedosto, jos sitä ei ole
+      loop: "{{ vlans }}"
+      when: 
+        - ansible_network_os == "community.network.exos"
+        - item.exos_ips[inventory_hostname] is defined

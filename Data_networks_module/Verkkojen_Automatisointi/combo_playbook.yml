@@ -1,0 +1,26 @@
+---
+- hosts: exos,vyos
+  gather_facts: no
+
+  tasks:
+      - name: Grab version EXOS
+        community.network.exos_command:
+          commands: "show version"
+        register: show_ver
+        when: ansible_network_os == 'community.network.exos'
+
+      - name: var_result EXOS
+        debug:
+          var: show_ver.stdout_lines[0]
+        when: ansible_network_os == 'community.network.exos'
+
+      - name: VyOS check version
+        vyos.vyos.vyos_command:
+          commands: show version
+        register: vyos_ver
+        when: ansible_network_os == 'vyos.vyos.vyos'
+
+      - name: var_result VyOS
+        debug:
+          var: vyos_ver.stdout_lines[0]
+        when: ansible_network_os == 'vyos.vyos.vyos'

@@ -1,0 +1,17 @@
+---
+- name: Configure banner on EXOS switch
+  hosts: exos_switch1
+  gather_facts: no
+  vars:
+    banner_message: "Welcome to the EXOS switch! Please adhere to the usage policy."
+
+  tasks:
+    - name: Configure banner using template
+      template:
+        src: banner.j2
+        dest: banner_config.txt  # Adjust the path accordingly
+      register: banner_file
+
+    - name: Load banner configuration to switch
+      command: "configure banner {{ banner_file.dest }}"
+      when: banner_file.changed

@@ -1,0 +1,6 @@
+{% for vlan in vlans %}
+set interfaces bridge br0 vif {{ vlan.id }} address {{ vlan.vyos_ip }}
+set interfaces bridge br0 vif {{ vlan.id }} description "{{ vlan.name }}"
+set interfaces bridge br0 member interface eth2 allowed-vlan {{ vlan.id }}
+set interfaces bridge br0 member interface eth3 allowed-vlan {{ vlan.id }}
+{% endfor %}

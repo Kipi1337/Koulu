@@ -1,0 +1,98 @@
+---
+- name: Configure VLANs on Exos switches and VyOS router
+  hosts: all
+  gather_facts: no
+
+  vars:
+    vlans:
+      - id: 100
+        name: "KISULI"
+        vyos_ip: "10.10.100.11/24"
+        exos_ips:
+          exos-switch1: "10.10.100.1"
+          exos-switch2: "10.10.100.2"
+          exos-switch3: "10.10.100.3"
+          exos-switch4: "10.10.100.4"
+        ports:
+          exos-switch1: "1-4"
+          exos-switch2: "1-4"
+          exos-switch3: "1-2"
+          exos-switch4: "1-2"
+
+  tasks:
+    - name: Ensure output directory exists
+      file:
+        path: backup/output
+        state: directory
+      tags: backup
+
+    - name: Backup current VyOS configuration
+      vyos.vyos.vyos_config:
+        backup: true
+        backup_options:
+          dir_path: backup/output
+          filename: "vyos2_{{ inventory_hostname }}_current.cfg"
+      when: ansible_network_os == "vyos.vyos.vyos"
+      tags: backup
+
+    - name: Backup current Exos configuration
+      community.network.exos_config:
+        backup: true
+        backup_options:
+          dir_path: backup/output
+          filename: "exos2_{{ inventory_hostname }}_current.cfg"
+      when: ansible_network_os == "community.network.exos"
+      tags: backup
+
+    - name: Generate new VyOS configuration
+      template:
+        src: templates/vyos_vlan_template.j2
+        dest: backup/output/vyos2_{{ inventory_hostname }}_new.conf
+      loop: "{{ vlans }}"
+      vars:
+        vlan_id: "{{ item.id }}"
+        vlan_name: "{{ item.name }}"
+        vyos_ip_address: "{{ item.vyos_ip }}"
+      when: ansible_network_os == "vyos.vyos.vyos"
+      tags: generate
+
+    - name: Generate new Exos configuration
+      template:
+        src: templates/exos_vlan_template.j2
+        dest: backup/output/exos2_{{ inventory_hostname }}_new.conf
+      loop: "{{ vlans }}"
+      vars:
+        vlan_name: "{{ item.name }}"
+        vlan_id: "{{ item.id }}"
+        vlan_ip: "{{ item.vyos_ip }}"
+        exos_ip: "{{ item.exos_ips[inventory_hostname] | default('') }}"
+        ports: "{{ item.ports[inventory_hostname] | default('') }}"
+      when: ansible_network_os == "community.network.exos"
+      tags: generate
+
+    - name: Compare current VyOS configuration with new configuration
+      command: "diff backup/output/vyos2_{{ inventory_hostname }}_current.cfg backup/output/vyos2_{{ inventory_hostname }}_new.conf"
+      register: vyos_diff
+      ignore_errors: yes  # Continue even if the diff command returns a non-zero code
+      when: ansible_network_os == "vyos.vyos.vyos"
+      tags: compare
+
+    - name: List changes added in the new configuration for VyOS
+      debug:
+        msg: "Changes added in the new configuration:\n{{ vyos_diff.stdout_lines | select('search', '^>') | list }}"
+      when: vyos_diff is defined and vyos_diff.stdout_lines is defined
+      tags: compare
+
+    - name: Compare current Exos configuration with new configuration
+      command: "diff backup/output/exos2_{{ inventory_hostname }}_current.cfg backup/output/exos2_{{ inventory_hostname }}_new.conf"
+      register: exos_diff
+      ignore_errors: yes  # Continue even if the diff command returns a non-zero code
+      when: ansible_network_os == "community.network.exos"
+      tags: compare
+
+    - name: List changes added in the new configuration for Exos
+      debug:
+        msg: "Changes added in the new configuration:\n{{ exos_diff.stdout_lines | select('search', '^>') | list }}"
+      when: exos_diff is defined and exos_diff.stdout_lines is defined
+      tags: compare
+

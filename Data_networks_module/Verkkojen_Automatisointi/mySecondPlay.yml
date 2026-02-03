@@ -1,0 +1,8 @@
+---
+- hosts: vyos
+
+  tasks:
+
+    - name: run multiple commands and check if version output contains specific version
+      vyos.vyos.vyos_command:
+        commands: show version
