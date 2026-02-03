@@ -1,0 +1,31 @@
+In main.cpp press Ctrl + Shift + P
+Task: Configure Task or Configure Default built task
+
+modify the tasks.json so it looks like this
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "#cpp file name here#",
+                "-o",
+                "#app name here#"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
+
+tasks.json
+Press Ctrl + Shift + B to build it
+Select C/C++: g++.exe
+
