@@ -1,37 +1,36 @@
-# Koulu
+# Koulu Käydyt kurssit
 
-# Käydyt kurssit:
 ## Kyberpuolustus:
-Data Security Controls
-Hardening
+Data Security Controls<br>
+Hardening<br>
 Kyberuhkatieto ja data-analytiikka
 ## Data analytiikka ja teköäly:
-Computational algorithms
-Machine Learning
-Data Analysis and Visualization	
-Data Preprocessing
-Data-Analysis and Machine Learning Basics
+Computational algorithms<br>
+Machine Learning<br>
+Data Analysis and Visualization<br>
+Data Preprocessing<br>
+Data-Analysis and Machine Learning Basics<br>
 Deep Learning
 ## Advanced Programming
-Olio-ohjelmointi
-Functional Programming
+Olio-ohjelmointi<br>
+Functional Programming<br>
 Concurrent Programming
 ## Tietoverkot
-Tietoverkkoprojekti
-Liityntäverkot
-Konesaliverkot
-Runkoverkot
-Lähiverkot
-Verkkojen automatisointi
+Tietoverkkoprojekti<br>
+Liityntäverkot<br>
+Konesaliverkot<br>
+Runkoverkot<br>
+Lähiverkot<br>
+Verkkojen automatisointi<br>
 ## Kouluvuodet 1-3
-Johdatus data-analytiikkaan ja tekoälyyn	
-Tietorakenteet ja algoritmit	
-Kyberturvallisuus
-Skriptaamisen ja automatisoinnin perusteet
-Tietokannat
-Tietoverkot
-Web-tekniikat
-Ohjelmoinnin perusteet Python
-Linuxin käyttö ja hallinta
+Johdatus data-analytiikkaan ja tekoälyyn<br>
+Tietorakenteet ja algoritmit<br>
+Kyberturvallisuus<br>
+Skriptaamisen ja automatisoinnin perusteet<br>
+Tietokannat<br>
+Tietoverkot<br>
+Web-tekniikat<br>
+Ohjelmoinnin perusteet Python<br>
+Linuxin käyttö ja hallinta<br>
 Git -version control and Gitlab -project management environment
 
